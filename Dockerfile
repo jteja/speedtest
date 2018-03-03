@@ -28,16 +28,11 @@ RUN php-7.1.4/configure --with-apxs2=/usr/local/apache/bin/apxs --enable-mbstrin
 RUN make
 RUN make install
 RUN echo -e "<IfModule mime_module> \n AddType text/html .php .phps \n</IfModule> \n<IfModule dir_module> \nDirectoryIndex index.html index.php \n</IfModule> \nAddType  application/x-httpd-php        .php \nAddType  application/x-httpd-php-source  .phps" >> /usr/local/apache/conf/httpd.conf
-RUN git clone 'https://github.com/jteja/pdftools.git' 
-RUN mv pdftools/* /usr/local/apache/htdocs/
-RUN rm -rf pdftools
-RUN rm -rf /usr/local/apache/htdocs/pdftools /usr/local/apache/htdocs/index.html
-RUN mkdir /usr/local/apache/htdocs/uploads
-RUN chmod 777 /usr/local/apache/htdocs/uploads
+RUN git clone 'https://github.com/jteja/speedtest' 
+RUN mv speedtest/* /usr/local/apache/htdocs/
+RUN rm -rf speedtest
+RUN rm -rf /usr/local/apache/htdocs/speedtest /usr/local/apache/htdocs/index.html
 RUN rm -rf http*
 RUN rm -rf apr*
 RUN cp /php-*/php.ini-production /usr/local/lib/php.ini
-RUN yum install -y ImageMagick*
-RUN printf "\n" | pecl install imagick
-RUN echo "extension=imagick.so" >> /usr/local/lib/php.ini
 CMD ["/usr/local/apache/bin/apachectl","-D","FOREGROUND"]

@@ -101,6 +101,34 @@
 			margin: 0 auto;
 		}
 	}
+#benchBtn{
+		display:inline-block;
+		margin:0 auto;
+		color:#6060AA;
+		background-color:rgba(0,0,0,0);
+		border:0.15em solid #6060FF;
+		border-radius:0.3em;
+		transition:all 0.3s;
+		box-sizing:border-box;
+		width:8em; height:3em;
+		line-height:2.7em;
+		cursor:pointer;
+		box-shadow: 0 0 0 rgba(0,0,0,0.1), inset 0 0 0 rgba(0,0,0,0.1);
+	}
+	#benchBtn:hover{
+		box-shadow: 0 0 2em rgba(0,0,0,0.1), inset 0 0 1em rgba(0,0,0,0.1);
+	}
+	#benchBtn.running{
+		background-color:#FF3030;
+		border-color:#FF6060;
+		color:#FFFFFF;
+	}
+	#benchBtn:before{
+		content:"Benchmark";
+	}
+	#benchBtn.running:before{
+		content:"Abort";
+	}
 
 </style>
 <script src="platform.js"></script>
@@ -302,15 +330,18 @@ function initUI(){
 preg_match('#\((.*?)\)#', $useragent, $match);   
 echo "<b>Operating System</b>: " . $match[1];
 ?>
-<p id="benchmark"> </p>
+<br><br><br>
+<div id="benchBtn" onclick="benchmark()"> </div>
+<p id="score"> </p>
 <script type="text/javascript" src="sha512-min.js"></script>
 <script type="text/javascript">
+function benchmark(){
     for(i=1; i<=100000; i++){
 
     hash = hex_sha512("string");
     hmac = hex_hmac_sha512("key", "data");
 }
-document.getElementById("benchmark").innerHTML = "Score: "+(Date.now()-timerStart)/1000;
+document.getElementById("score").innerHTML = "Score: "+(Date.now()-timerStart)/1000;}
 </script>
 </body>
 </html>
